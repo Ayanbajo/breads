@@ -15,7 +15,13 @@ breads.get('/', (req, res) => {
 
 // SHOW
 breads.get('/:arrayIndex', (req, res) => {
-    res.send(Bread[req.params.arrayIndex])
+    res.render('index',
+    {
+        breads: Bread,
+        title: 'Index Page'
+    }
+    )
+    // res.send(Bread[req.params.arrayIndex])
   })  
 
 module.exports = breads
