@@ -10,7 +10,6 @@ breads.get('/', (req, res) => {
     breads: Bread
   }
   )
-  // res.send(Bread)
 })
 
 // SHOW
