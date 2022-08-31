@@ -1,32 +1,71 @@
 const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
+const Baker = require('../models/baker.js')
 
 // INDEX
+// Index:
 breads.get('/', (req, res) => {
-  Bread.find()
+  Baker.find()
+    .then(foundBakers => {
+      Bread.find()
       .then(foundBreads => {
           res.render('index', {
               breads: foundBreads,
+              bakers: foundBakers,
               title: 'Index Page'
           })
       })
+    })
 })
+
+// breads.get('/', (req, res) => {
+//   Bread.find()
+//       .then(foundBreads => {
+//           res.render('index', {
+//               breads: foundBreads,
+//               title: 'Index Page'
+//           })
+//       })
+// })
 
 // NEW
 breads.get('/new', (req, res) => {
-  res.render('new')
+  Baker.find()
+  .then(foundBakers => {
+    res.render('new', {
+      bakers: foundBakers
+    })
+  })
 })
+
+// breads.get('/new', (req, res) => {
+//   res.render('new')
+// })
+
 
 // EDIT
 breads.get('/:id/edit', (req, res) => {
-  Bread.findById(req.params.id) 
-    .then(foundBread => { 
-      res.render('edit', {
-        bread: foundBread 
-      })
+  Baker.find()
+    .then(foundBakers => {
+        Bread.findById(req.params.id)
+          .then(foundBread => {
+            res.render('edit', {
+                bread: foundBread, 
+                bakers: foundBakers 
+            })
+          })
     })
 })
+
+// breads.get('/:id/edit', (req, res) => {
+//   Bread.findById(req.params.id) 
+//     .then(foundBread => { 
+//       res.render('edit', {
+//         bread: foundBread 
+//       })
+//     })
+// })
 
 // breads.get('/:indexArray/edit', (req, res) => {
 //   res.render('edit', {
@@ -35,20 +74,32 @@ breads.get('/:id/edit', (req, res) => {
 //   })
 // })
 
-// SHOW
+
+
 // SHOW
 breads.get('/:id', (req, res) => {
   Bread.findById(req.params.id)
+      .populate('baker')
       .then(foundBread => {
-        const bakedBy = foundBread.getBakedBy() 
-        console.log(bakedBy)
         res.render('show', {
             bread: foundBread
         })
       })
-    })
+      .catch(err => {
+        res.send('404')
+      })
+})
 
-
+// breads.get('/:id', (req, res) => {
+//   Bread.findById(req.params.id)
+//       .then(foundBread => {
+//         const bakedBy = foundBread.getBakedBy() 
+//         console.log(bakedBy)
+//         res.render('show', {
+//             bread: foundBread
+//         })
+//       })
+//     })
 // breads.get('/:arrayIndex', (req, res) => {
 //   if (Bread[req.params.arrayIndex]) {
 //     res.render('Show', {
