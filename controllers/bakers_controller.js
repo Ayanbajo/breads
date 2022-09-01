@@ -28,6 +28,21 @@ baker.get('/:id', (req, res) => {
         })
 })
 
+// baker.get('/:id', (req, res) => {
+//     Baker.findById(req.params.id)
+//         .populate({
+//             path: 'breads',
+//             options: { limit: 2 }
+//         })
+//         .then(foundBaker => {
+//             res.render('bakerShow', {
+//                 baker: foundBaker
+//             })
+//         })
+// })
+
+
+
 // delete
 baker.delete('/:id', (req, res) => {
     Baker.findByIdAndDelete(req.params.id) 
