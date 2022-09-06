@@ -18,20 +18,6 @@ breads.get('/', (req, res) => {
     })
 })
 
-// breads.get('/', async (req, res) => {
-//   const foundBakers = await Baker.find().lean() 
-//   const foundBreads = await Bread.find().limit(2).lean() 
-//   res.render('index', {
-//     breads: foundBreads,
-//     bakers: foundBakers,
-//     title: 'Index Page'
-//   })
-// })
-
-
-
-
-
 // NEW
 breads.get('/new', (req, res) => {
   Baker.find()
@@ -41,11 +27,6 @@ breads.get('/new', (req, res) => {
     })
   })
 })
-
-// breads.get('/new', (req, res) => {
-//   res.render('new')
-// })
-
 
 // EDIT
 breads.get('/:id/edit', (req, res) => {
@@ -61,23 +42,6 @@ breads.get('/:id/edit', (req, res) => {
     })
 })
 
-// breads.get('/:id/edit', (req, res) => {
-//   Bread.findById(req.params.id) 
-//     .then(foundBread => { 
-//       res.render('edit', {
-//         bread: foundBread 
-//       })
-//     })
-// })
-
-// breads.get('/:indexArray/edit', (req, res) => {
-//   res.render('edit', {
-//     bread: Bread[req.params.indexArray],
-//     index: req.params.indexArray
-//   })
-// })
-
-
 
 // SHOW
 breads.get('/:id', (req, res) => {
@@ -92,28 +56,6 @@ breads.get('/:id', (req, res) => {
         res.send('404')
       })
 })
-
-// breads.get('/:id', (req, res) => {
-//   Bread.findById(req.params.id)
-//       .then(foundBread => {
-//         const bakedBy = foundBread.getBakedBy() 
-//         console.log(bakedBy)
-//         res.render('show', {
-//             bread: foundBread
-//         })
-//       })
-//     })
-// breads.get('/:arrayIndex', (req, res) => {
-//   if (Bread[req.params.arrayIndex]) {
-//     res.render('Show', {
-//       bread:Bread[req.params.arrayIndex],
-//       index: req.params.arrayIndex,
-//     })
-//   } else {
-//     res.render('404')
-//   }
-// })
-
 
 // CREATE
 breads.post('/', (req, res) => {
@@ -137,10 +79,6 @@ breads.delete('/:id', (req, res) => {
     })
 })
 
-// breads.delete('/:indexArray', (req, res) => {
-//   Bread.splice(req.params.indexArray, 1)
-//   res.status(303).redirect('/breads')
-// })
 
 // UPDATE
 breads.put('/:id', (req, res) => {
@@ -155,16 +93,6 @@ breads.put('/:id', (req, res) => {
       res.redirect(`/breads/${req.params.id}`) 
     })
 })
-
-// breads.put('/:arrayIndex', (req, res) => {
-//   if(req.body.hasGluten === 'on'){
-//     req.body.hasGluten = true
-//   } else {
-//     req.body.hasGluten = false
-//   }
-//   Bread[req.params.arrayIndex] = req.body
-//   res.redirect(`/breads/${req.params.arrayIndex}`)
-// })
 
 breads.get('/data/seed', (req, res) => {
   Bread.insertMany([
